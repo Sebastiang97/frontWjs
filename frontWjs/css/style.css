@@ -1,0 +1,215 @@
+*{
+    box-sizing: content-box;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.logo {
+    /* width: 120px; */
+    float: left;
+    height: 50px;
+    padding: 8px;
+}
+.card img {
+    float: left;
+    height: 160px;
+    padding: 10px;
+    width: 160px;
+}
+
+body{
+    background-color: #212121;
+    font-family: 'calibri';
+    margin: 0;
+    padding: 0;
+}
+
+.menu {
+    margin: 0 auto;
+    width: 900px;
+}
+
+header {
+    background: #3ae5fc;
+    clear: both;
+    content:'';
+    display: table;
+    width: 100%;
+}
+
+
+
+
+.mav2 {
+    float: right;
+}
+
+.mav2 ul li {
+    list-style: none;
+    margin-left: 25px;
+    padding: 12px 0;
+    float: right;
+    position: relative;
+}
+
+.mav2 ul li a {
+    text-decoration: none;
+    color: #444;
+    font-weight: bold;
+}
+
+.mav2 ul li a::before {
+    display: block;
+    content: '';
+    width: 100%;
+    background: #444;
+    height: 5px;
+    top: 0;
+    position: absolute;
+}
+
+
+/* .wrapper{
+    width: 100%;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(4, 1fr) ;
+} */
+
+/* .van2{
+    width: 100%;
+    height: 23vh;
+    background-color: #48e6fb;
+    position: relative;
+}
+
+.content{
+    width: 100%;
+    height: 100vh;
+    grid-column: 4/5;
+    margin-top: 60px;
+    /*background-color: #29dbbc;
+}*/
+
+.layout{
+    width: 100%;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(4, 1fr) ;
+}
+
+.van2 ul li{
+    color:rgb(255, 255, 255);
+    /* grid-template-columns: repeat(4 , 1fr); */
+    margin-right: 55px;
+    padding-right: 55px;
+} 
+
+.query {
+    padding-left: 85px;
+    width: 228px;
+    height: 98px;
+    size: 32;
+
+    
+}
+
+
+
+
+
+
+
+/* ul.col3
+{
+padding-right: 0px;
+padding-left: 0px;
+float: left;
+padding-bottom: 0px;
+margin: 15px 0px;
+width: 100%;
+padding-top: 0px;
+list-style-type;: none
+} */
+
+
+
+ul.col3 li{
+    display: inline;
+}
+
+/* From uiverse.io by @Clenio21  */
+.card {
+ width: 300px;
+ height: 254px;
+ --border-radius: 15px;
+ --border-width: 4px;
+ appearance: none;
+ position: relative;
+ padding: 1em 2em;
+ margin: 10px;
+ border: 0;
+ background: rgb(5, 5, 22);
+ font-size: 18px;
+ font-weight: 500;
+ color: #fff;
+ z-index: 2;
+ border-radius: 15px;
+}
+
+.card::after {
+ --m-i: linear-gradient(#000, #000);
+ --m-o: content-box, padding-box;
+ content: "";
+ position: absolute;
+ left: 0;
+ top: 0;
+ width: 100%;
+ height: 100%;
+ padding: var(--border-width);
+ border-radius: var(--border-radius);
+ background-image: conic-gradient(
+		#488cfb,
+		#29dbbc,
+		#ddf505,
+		#ff9f0e,
+		#e440bb,
+		#655adc,
+		#488cfb
+	);
+ -webkit-mask-image: var(--m-i), var(--m-i);
+ mask-image: var(--m-i), var(--m-i);
+ -webkit-mask-origin: var(--m-o);
+ mask-origin: var(--m-o);
+ -webkit-mask-clip: var(--m-o);
+ mask-composite: exclude;
+ -webkit-mask-composite: destination-out;
+ filter: hue-rotate(0);
+ animation: rotate-hue linear 500ms infinite;
+ animation-play-state: paused;
+}
+
+.card img{
+    width: 100%;
+}
+
+
+.card:hover::after {
+ animation-play-state: running;
+}
+
+@keyframes rotate-hue {
+ to {
+  filter: hue-rotate(1turn);
+ }
+}
+
+.card,
+.card::after {
+ box-sizing: border-box;
+}
+
+.card:active {
+ --border-width: 5px;
+}
