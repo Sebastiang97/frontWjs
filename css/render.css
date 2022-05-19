@@ -1,0 +1,102 @@
+.card {
+  width: 200px;
+  margin: 5px;
+  padding: 2px;
+  color: white;
+  position: relative;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.btn-fav {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 1;
+}
+
+.fav {
+  background: rgba(255, 172, 172, 0.796);
+  border-radius: 100px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  box-shadow: inset 0 0 10px #ffacacbd, 0 0 9px 3px #ffacacbd;
+  transition: all 0.3s ease;
+}
+
+.card:hover:nth-child(5n + 1) {
+  background-color: #488cfb;
+  box-shadow: inset 0 0 10px #488cfb, 0 0 9px 3px #488cfb;
+}
+.card:hover:nth-child(5n + 2) {
+  background-color: #29dbbc;
+  box-shadow: inset 0 0 10px #29dbbc, 0 0 9px 3px #29dbbc;
+}
+.card:hover:nth-child(5n + 3) {
+  background-color: #ddf505;
+  box-shadow: inset 0 0 10px #ddf505, 0 0 9px 3px #ddf505;
+}
+.card:hover:nth-child(5n + 4) {
+  background-color: #ff9f0e;
+  box-shadow: inset 0 0 10px #ff9f0e, 0 0 9px 3px #ff9f0e;
+}
+
+.card:hover:nth-child(5n + 5) {
+  background-color: #655adc;
+  box-shadow: inset 0 0 10px #655adc, 0 0 9px 3px #655adc;
+}
+
+.card:hover:nth-child(5n + 6) {
+  background-color: #e62222;
+  box-shadow: inset 0 0 10px #e62222, 0 0 9px 3px #e62222;
+}
+
+.notfound {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.neon {
+  font-size: 50px;
+  color: #37ff8b;
+  -webkit-text-stroke: 1.5px #37ff8b;
+  filter: drop-shadow(0 0 23px #37ff8b);
+}
+
+.targets {
+  cursor: pointer;
+}
+
+.notifications {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
+
+.msg {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  height: 25px;
+  border: 2px solid #fa4753;
+  caret-color: #fa4753;
+  color: #fa4753;
+  background-color: #1b1b1b;
+  box-shadow: inset 0 0 10px #fa4753, 0 0 9px 3px #fa4753;
+}
