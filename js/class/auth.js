@@ -1,10 +1,14 @@
+import Storage from './storage.js'
+const storage = new Storage()
 class Auth {
-  login() {}
+  login() {
+    storage.setData()
+  }
 
   viewLogin() {
     return `
-        <form id="formlogin">
-            <div class="neonTitle">Login</div>
+        <form id="formAuth">
+            <div class="neon">Login</div>
             <input
                 type="text"
                 name="Correo"
@@ -19,7 +23,7 @@ class Auth {
                 class="input animate__animated animate__shakeY"
             />
 
-            <button id="btnQuery">login</button>
+            <button id="btnQuery" class="login">login</button>
         </form>
       `
   }
@@ -28,7 +32,8 @@ class Auth {
 
   viewSignUp() {
     return `
-        <form id="formSignUp">
+        <form id="formAuth">
+            <div class="neon">Sign Up</div>
             <input
                 type="text"
                 name="Correo"
@@ -43,7 +48,7 @@ class Auth {
                 class="input animate__animated animate__shakeY"
             />
 
-            <button id="btnQuery">Sign Up</button>
+            <button id="btnQuery" class="signUp">Sign Up</button>
         </form>
       `
   }

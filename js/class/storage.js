@@ -1,15 +1,13 @@
 class Storage {
-  setData(data) {
+  setData() {
+    const value = this.isLogin()
     localStorage.setItem(
-      'other',
-      JSON.stringify([
-        {
-          carrito: 'inicializado',
+      'user',
+      JSON.stringify({
+        user: {
+          logged: !value,
         },
-        {
-          otherCarrito: 'inicializado',
-        },
-      ])
+      })
     )
   }
 
@@ -18,13 +16,29 @@ class Storage {
     return JSON.parse(data)
   }
 
+  isLogin() {
+    const isLogin = this.getData('user')
+    if (isLogin) {
+      return isLogin.user.logged
+    }
+    localStorage.setItem(
+      'user',
+      JSON.stringify({
+        user: {
+          logged: false,
+        },
+      })
+    )
+    return false
+  }
+
   addToFav(img) {
     if (!this.validate(img.id)) {
       this.#pushToFav(img)
-      return 'gif add to favorites success'
+      return 'Gif added to favorites'
     }
     this.#deleteToFav(img.id)
-    return 'gif is to Favorites'
+    return 'Gif is in Favorites'
   }
 
   #pushToFav(img) {

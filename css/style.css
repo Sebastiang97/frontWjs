@@ -39,7 +39,7 @@ body {
 }
 
 .collapse {
-  display: none;
+  display: none !important;
 }
 
 nav {
@@ -56,10 +56,20 @@ nav {
   text-transform: uppercase;
 }
 
-.neon {
-  color: #37ff8b;
+.neonTitle {
+  cursor: pointer;
+  font-family: Koulen;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 10px;
+  font-size: 50px;
+  color: transparent;
   -webkit-text-stroke: 1.5px #37ff8b;
   filter: drop-shadow(0 0 23px #37ff8b);
+}
+
+.neonTitle:hover {
+  -webkit-text-stroke: 2.6px #37ff8b;
 }
 
 nav .mobile {
@@ -254,7 +264,7 @@ nav .secondary.mini {
   }
 
   #btnQuery:hover:before {
-    transform: translateX(4622px);
+    transform: translateX(462px);
   }
 }
 
@@ -262,21 +272,6 @@ nav .secondary.mini {
   nav .desktop {
     display: none;
   }
-
-  /* .links {
-    top: -750px;
-    width: 100%;
-    position: absolute;
-    transition: 0.5s linear;
-    background-color: #1b1b1b;
-    z-index: 20;
-  }
-
-  .active {
-    top: 0px !important;
-    position: relative;
-    transition: 0.5s linear;
-  } */
 
   nav .mobile {
     display: block;

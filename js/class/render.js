@@ -1,5 +1,6 @@
 import Storage from './storage.js'
 const storage = new Storage()
+
 class RenderCards {
   renderCards(gifs) {
     let res = ''
@@ -10,7 +11,9 @@ class RenderCards {
       res += `
         <div class="card animate__animated animate__fadeIn targets" id="${id}" >
           <img src="${url}" id="${id}" alt="">
-          <h4 id="${id}">${title}</h4>
+          <div class="cont" id="${id}">
+            <h4 id="${id}">${title}</h4>
+          </div>
           <div class="btn-fav" id="${id}">
             <span class="fav" data-img=${url} data-title=${title} data-id=${id}>${emoji}</span>
           </div>
@@ -32,6 +35,27 @@ class RenderCards {
         </div>
       </div>
     `
+    return res
+  }
+
+  renderFav() {
+    const fav = storage.getData('favs')
+    let res = ''
+    fav.map(({ img, title, id, date }) => {
+      const emoji = this.validateEmoji(id)
+      res += `
+        <div class="card animate__animated animate__fadeIn targets" id="${id}" >
+          <img src="${img}" id="${id}" alt="">
+          <div class="cont" id="${id}">
+            <span class="date">${date}</span>
+            <h4 id="${id}">${title}</h4>
+          </div>
+          <div class="btn-fav" id="${id}">
+            <span class="fav" data-img=${img} data-title=${title} data-id=${id}>${emoji}</span>
+          </div>
+        </div>
+      `
+    })
     return res
   }
 

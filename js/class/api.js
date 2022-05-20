@@ -1,16 +1,39 @@
 class Api {
-  //https://api.giphy.com/v1/gifs/search?api_key=XI4VhJ3bHRJPx0Qi6KKexinBJsdSKnSi&q=&limit=10&offset=0&rating=g&lang=en
-
   url = `https://api.giphy.com/v1/gifs/`
   apiKey = '?api_key=XI4VhJ3bHRJPx0Qi6KKexinBJsdSKnSi'
   limit = `&limit=20&rating=g`
-  async getDataTrendings() {
+  async getTrendings() {
     //https://api.giphy.com/v1/gifs/trending?api_key=XI4VhJ3bHRJPx0Qi6KKexinBJsdSKnSi&limit=10&rating=g
-    const query = `${this.url}/trending${this.apiKey}&${this.limit}`
+    const query = `${this.url}trending${this.apiKey}&${this.limit}`
     const res = await fetch(query)
-    const data = await res.json()
+    const { data } = await res.json()
+    const gifs = data.map((img) => {
+      return {
+        id: img.id,
+        title: img.title,
+        url: img.images?.downsized_medium.url,
+      }
+    })
+    return gifs
+  }
 
-    return data
+  async getRandom() {
+    //https://api.giphy.com/v1/gifs/random?api_key=XI4VhJ3bHRJPx0Qi6KKexinBJsdSKnSi&tag=&rating=g
+    let gifs = []
+    for (let i = 0; i < 10; i++) {
+      const query = `${this.url}random${this.apiKey}&tag=&rating=g`
+      const res = await fetch(query)
+      const { data } = await res.json()
+      const { id, title, images } = data
+      const gif = {
+        id,
+        title,
+        url: images?.downsized_medium.url,
+      }
+      gifs.push(gif)
+    }
+
+    return gifs
   }
 
   async getById(idGif) {
@@ -18,15 +41,14 @@ class Api {
 
     const res = await fetch(query)
     const { data } = await res.json()
-    const { id, title, type, images } = data
-    const img = {
+    const { id, title, images } = data
+    const gif = {
       id,
       title,
-      type,
       url: images?.downsized_medium.url,
     }
 
-    return img
+    return gif
   }
 
   async getByQuery(q) {
@@ -35,14 +57,14 @@ class Api {
     const query = `${this.url}${mod}${this.apiKey}&q=${q}${this.limit}`
     const res = await fetch(query)
     const { data } = await res.json()
-    const imgs = data.map((img) => {
+    const gifs = data.map((img) => {
       return {
         id: img.id,
         title: img.title,
         url: img.images?.downsized_medium.url,
       }
     })
-    return imgs
+    return gifs
   }
 
   #geturl(url, mod, key) {

@@ -1,4 +1,4 @@
-#formlogin {
+#formAuth {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -6,28 +6,32 @@
   margin: 10px auto;
 }
 
-.neonTitle {
+.neon {
   width: 100%;
   font-size: 50px;
   display: flex;
   justify-content: center;
   color: #37ff8b;
-  -webkit-text-stroke: 1.5px #37ff8b;
+  -webkit-text-stroke: 0.1px #37ff8b;
   filter: drop-shadow(0 0 23px #37ff8b);
   margin: 30px auto;
 }
 
-#formlogin .input {
+.neon:hover {
+  -webkit-text-stroke: 2.5px #37ff8b;
+}
+
+#formAuth .input {
   width: 500px;
   margin: 20px;
 }
 
-#formlogin #btnQuery {
+#formAuth #btnQuery {
   width: 500px;
   height: 25px;
   margin: 20px;
 }
 
-#formlogin #btnQuery:hover:before {
+#formAuth #btnQuery:hover:before {
   transform: translateX(512px);
 }

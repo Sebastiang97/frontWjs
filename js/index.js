@@ -17,9 +17,82 @@ const formQuery = document.querySelector('#formQuery')
 const layout = document.querySelector('.layout')
 const MenuActive = document.querySelector('.MenuActive')
 const btnsLogin = document.querySelectorAll('#btn-login')
+const btnsSignUp = document.querySelectorAll('#btn-signUp')
+const btnsTrendings = document.querySelectorAll('#btn-trendings')
+const btnRandom = document.querySelectorAll('#btn-random')
+const btnsFavs = document.querySelectorAll('#btn-favs')
+const logo = document.querySelectorAll('.logo')
 const notification = document.querySelector('.notifications')
 
-/*Evento Search*/
+/*
+  Eventos NavBar
+*/
+
+/*Evento para desplegar menu*/
+MenuActive.addEventListener('click', () => {
+  const links = document.querySelector('.links')
+  links.classList.toggle('collapse')
+})
+
+/*Evento para favorites, trendings y random 2 por cada uno Desktop y mobile*/
+for (let i = 0; i < btnsFavs.length; i++) {
+  btnsFavs[i].addEventListener('click', (e) => {
+    layout.innerHTML = ''
+    layout.innerHTML = renderCards.renderFav()
+    addEventsToCreates()
+  })
+  btnsTrendings[i].addEventListener('click', async (e) => {
+    const trendings = await api.getTrendings()
+    layout.innerHTML = ''
+    layout.innerHTML = renderCards.renderCards(trendings)
+    addEventsToCreates()
+  })
+  btnRandom[i].addEventListener('click', async (e) => {
+    const random = await api.getRandom()
+    layout.innerHTML = ''
+    layout.innerHTML += renderCards.renderCards(random)
+    addEventsToCreates()
+  })
+  logo[i].addEventListener('click', async (e) => {
+    layout.innerHTML = ''
+    layout.innerHTML = renderCards.renderFav()
+    addEventsToCreates()
+  })
+}
+
+/*Evento login y sign up */
+for (let i = 0; i < btnsLogin.length; i++) {
+  btnsLogin[i].addEventListener('click', (e) => {
+    layout.innerHTML = ''
+    layout.innerHTML = auth.viewLogin()
+    const login = document.querySelector('.login')
+    login.addEventListener('click', (e) => {
+      notification.classList.toggle('collapse')
+      e.preventDefault()
+      auth.login()
+      notifications('Welcome User')
+      initialize()
+    })
+  })
+
+  btnsSignUp[i].addEventListener('click', (e) => {
+    layout.innerHTML = ''
+    layout.innerHTML = auth.viewSignUp()
+    const signUp = document.querySelector('.signUp')
+    signUp.addEventListener('click', (e) => {
+      notification.classList.toggle('collapse')
+      e.preventDefault()
+      notifications('Registered user')
+      initialize()
+    })
+  })
+}
+
+/*
+  Eventos NavBar cierre
+*/
+
+/*Evento buscar gifs*/
 const queryInput = async (e) => {
   e.preventDefault()
   let q = query.value
@@ -28,16 +101,24 @@ const queryInput = async (e) => {
   layout.innerHTML = ''
   if (gifs) {
     layout.innerHTML = renderCards.renderCards(gifs)
+    addEventsToCreates()
+  }
+}
+/*Evento busqueda personalizada*/
+formQuery.addEventListener('submit', queryInput)
+btnQuery.addEventListener('submit', queryInput)
 
-    let targets = document.querySelectorAll('.targets')
-    let favs = document.querySelectorAll('.fav')
-    for (let i = 0; i < targets.length; i++) {
-      targets[i].addEventListener('click', (e) => {
-        renderById(e.target.id)
-      })
-      favs[i].addEventListener('click', (e) => {
-        e.stopPropagation()
-        addParameters(
+const addEventsToCreates = () => {
+  let targets = document.querySelectorAll('.targets')
+  let favs = document.querySelectorAll('.fav')
+  for (let i = 0; i < targets.length; i++) {
+    targets[i].addEventListener('click', (e) => {
+      renderById(e.target.id)
+    })
+    favs[i].addEventListener('click', (e) => {
+      e.stopPropagation()
+      if (storage.isLogin()) {
+        addToFav(
           {
             img: e.target.dataset.img,
             title: e.target.dataset.title,
@@ -45,14 +126,13 @@ const queryInput = async (e) => {
           },
           e.target
         )
-      })
-    }
+      } else {
+        notifications('Should login')
+        layout.innerHTML = ''
+        layout.innerHTML = auth.viewLogin()
+      }
+    })
   }
-}
-
-/*Funcion para llamar añadir favoritos (addToFav)*/
-const addParameters = (fav, target) => {
-  addToFav(fav, target)
 }
 
 /*Evento detalles gif*/
@@ -74,43 +154,38 @@ const renderById = async (query) => {
   })
 }
 
-/*Añadir a favoritos*/
+/*Evento para añadir a favoritos*/
 const addToFav = async ({ img, title, id }, fav) => {
+  notification.classList.toggle('collapse')
   const today = new Date()
   const date =
     today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear()
   const msg = storage.addToFav({ img, title, id, date })
-
-  notification.innerHTML = ''
-  notification.innerHTML = renderCards.notifications(msg)
+  notifications(msg)
   fav.innerHTML = renderCards.validateEmoji(id)
 }
 
-/*Evento busqueda personalizada*/
-formQuery.addEventListener('submit', queryInput)
-btnQuery.addEventListener('submit', queryInput)
-
-/*Evento para desplegar menu*/
-MenuActive.addEventListener('click', () => {
-  const links = document.querySelector('.links')
-  links.classList.toggle('collapse')
-})
-
-/*Evento login y sign up */
-for (let i = 0; i < btnsLogin.length; i++) {
-  btnsLogin[i].addEventListener('click', (e) => {
-    layout.innerHTML = ''
-    layout.innerHTML = auth.viewLogin()
-  })
+/*Evento Para personalizar el mensaje de las notificaciones*/
+const notifications = (msg) => {
+  notification.innerHTML = ''
+  notification.innerHTML = renderCards.notifications(msg)
+  setTimeout(() => {
+    notification.classList.toggle('collapse')
+  }, 3000)
 }
-/*
 
-https://www.google.com/search?q=validacion+de+formik+con+yup&sxsrf=ALiCzsZuvMszR06FspRuBkWc71gTKG5UDA%3A1652739947511&ei=a8-CYqjpHsOxkvQP8dKxyAg&ved=0ahUKEwjoyuiLiOX3AhXDmIQIHXFpDIkQ4dUDCA4&uact=5&oq=validacion+de+formik+con+yup&gs_lcp=Cgdnd3Mtd2l6EAM6BwgAEEcQsANKBAhBGABKBAhGGABQpQlY6Tlguz1oAnABeACAAa8BiAGHCZIBAzAuOJgBAKABAcgBCMABAQ&sclient=gws-wiz
+/*Inicializando layout con favorites*/
+const initialize = async () => {
+  if (storage.isLogin()) {
+    layout.innerHTML = ''
+    layout.innerHTML = renderCards.renderFav()
+    addEventsToCreates()
+  } else {
+    const trendings = await api.getTrendings()
+    layout.innerHTML = ''
+    layout.innerHTML = renderCards.renderCards(trendings)
+    addEventsToCreates()
+  }
+}
 
-https://codepen.io/Qanser/pen/pwzgyW
-
-https://www.google.com/search?q=css+animation+heart&oq=css+animation+heart+&aqs=chrome..69i57j0i10i19j0i19i22i30l4j0i15i19i22i30.12422j0j7&sourceid=chrome&ie=UTF-8
-
-
-https://uiverse.io/detail/mobinkakei/strong-lizard-79
-*/
+initialize()

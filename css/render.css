@@ -10,6 +10,22 @@
   width: 100%;
   height: 200px;
   object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.card .cont {
+  width: 90%;
+  padding: 5px 10px;
+}
+
+.card .cont .date {
+  color: #706f6f;
+  margin: 59px 0;
+}
+
+.card .cont h4 {
+  font-family: monospace;
+  text-transform: capitalize;
 }
 
 .btn-fav {
@@ -99,4 +115,22 @@
   color: #fa4753;
   background-color: #1b1b1b;
   box-shadow: inset 0 0 10px #fa4753, 0 0 9px 3px #fa4753;
+}
+
+@media screen and (max-width: 800px) {
+  .card {
+    width: 90%;
+    margin: 5px;
+    padding: 2px;
+    color: white;
+    position: relative;
+  }
+
+  .notifications {
+    left: 0px;
+  }
+
+  .msg {
+    width: 90%;
+  }
 }
