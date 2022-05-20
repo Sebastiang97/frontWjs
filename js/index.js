@@ -67,8 +67,8 @@ for (let i = 0; i < btnsLogin.length; i++) {
     layout.innerHTML = auth.viewLogin()
     const login = document.querySelector('.login')
     login.addEventListener('click', (e) => {
-      notification.classList.toggle('collapse')
       e.preventDefault()
+      notification.classList.toggle('collapse')
       auth.login()
       notifications('Welcome User')
       initialize()
@@ -80,8 +80,8 @@ for (let i = 0; i < btnsLogin.length; i++) {
     layout.innerHTML = auth.viewSignUp()
     const signUp = document.querySelector('.signUp')
     signUp.addEventListener('click', (e) => {
-      notification.classList.toggle('collapse')
       e.preventDefault()
+      notification.classList.toggle('collapse')
       notifications('Registered user')
       initialize()
     })
